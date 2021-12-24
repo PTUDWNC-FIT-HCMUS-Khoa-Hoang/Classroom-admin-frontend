@@ -22,6 +22,8 @@ export default function NavBar() {
       home: 'home',
       courses: 'courses',
       login: 'login',
+      users: 'users',
+      accounts: 'accounts',
       // register: 'register',
     };
     //#endregion
@@ -30,8 +32,10 @@ export default function NavBar() {
       setSelectedMenu(MENU_LIST.courses);
     } else if (location.pathname.includes(MENU_LIST.login)) {
       setSelectedMenu(MENU_LIST.home);
-      // } else if (location.pathname.includes(MENU_LIST.register)) {
-      //   setSelectedMenu(MENU_LIST.register);
+    } else if (location.pathname.includes(MENU_LIST.users)) {
+      setSelectedMenu(MENU_LIST.users);
+    } else if (location.pathname.includes(MENU_LIST.accounts)) {
+      setSelectedMenu(MENU_LIST.accounts);
     } else {
       setSelectedMenu(MENU_LIST.home);
     }
@@ -47,6 +51,12 @@ export default function NavBar() {
               <>
                 <Menu.Item key="home">
                   <Link to="/">Home</Link>
+                </Menu.Item>
+                <Menu.Item key="users">
+                  <Link to="/users">Users</Link>
+                </Menu.Item>
+                <Menu.Item key="accounts">
+                  <Link to="/accounts">Accounts</Link>
                 </Menu.Item>
                 <Menu.Item key="courses">
                   <Link to="/courses">Courses</Link>
