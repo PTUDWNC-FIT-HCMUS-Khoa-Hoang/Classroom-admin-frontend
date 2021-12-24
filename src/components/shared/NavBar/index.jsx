@@ -22,7 +22,7 @@ export default function NavBar() {
       home: 'home',
       courses: 'courses',
       login: 'login',
-      register: 'register',
+      // register: 'register',
     };
     //#endregion
 
@@ -30,8 +30,8 @@ export default function NavBar() {
       setSelectedMenu(MENU_LIST.courses);
     } else if (location.pathname.includes(MENU_LIST.login)) {
       setSelectedMenu(MENU_LIST.home);
-    } else if (location.pathname.includes(MENU_LIST.register)) {
-      setSelectedMenu(MENU_LIST.register);
+      // } else if (location.pathname.includes(MENU_LIST.register)) {
+      //   setSelectedMenu(MENU_LIST.register);
     } else {
       setSelectedMenu(MENU_LIST.home);
     }
@@ -57,9 +57,9 @@ export default function NavBar() {
                 <Menu.Item key="home">
                   <Link to="/login">Login</Link>
                 </Menu.Item>
-                <Menu.Item key="register">
+                {/* <Menu.Item key="register">
                   <Link to="/register">Register</Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </>
             )}
           </Menu>
