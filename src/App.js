@@ -7,6 +7,7 @@ import NavBar from './components/shared/NavBar';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
 import ClassroomList from './pages/Classrooms/ClassroomList';
+import UserListPage from './pages/Users/UserListPage';
 
 function App() {
   //#region Redux hooks
@@ -26,6 +27,7 @@ function App() {
               </Switch>
             ) : (
               <Switch>
+                <Route exact path="/users" component={UserListPage} />
                 <Route exact path="/courses" component={ClassroomList} />
               </Switch>
             )}
