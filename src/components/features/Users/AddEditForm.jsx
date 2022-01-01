@@ -1,25 +1,17 @@
 /* eslint-disable react/prop-types */
 import {
-  CheckSquareTwoTone,
-  DeleteTwoTone,
-  LockTwoTone,
-} from '@ant-design/icons';
-import {
-  Badge,
   Button,
+  Checkbox,
+  Col,
   Form,
   Input,
-  Select,
   message,
+  Row,
+  Space,
   Spin,
   Tag,
-  Tooltip,
-  Space,
-  Row,
-  Col,
-  Checkbox,
 } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import parseErrorMessage from '../../../helpers/parseErrorMessage';
 import VerificationTag from './VerificationTag';
 
@@ -63,10 +55,10 @@ const DeletedStatusField = ({ value = false, onChange }) => {
   };
 
   const renderDeletedStatus = () => {
-    const iconStyles = {
-      fontSize: '20px',
-      cursor: 'pointer',
-    };
+    // const iconStyles = {
+    //   fontSize: '20px',
+    //   cursor: 'pointer',
+    // };
 
     if (isDeleted) {
       return (
@@ -110,10 +102,10 @@ const ActiveStatusField = ({ value = false, onChange }) => {
   };
 
   const renderActiveStatus = () => {
-    const iconStyles = {
-      fontSize: '20px',
-      cursor: 'pointer',
-    };
+    // const iconStyles = {
+    //   fontSize: '20px',
+    //   cursor: 'pointer',
+    // };
 
     if (!isActive) {
       return (
@@ -178,51 +170,6 @@ export default function AddEditForm({
   };
 
   //   Render functions
-
-  const renderActiveStatus = () => {
-    const iconStyles = {
-      fontSize: '20px',
-      cursor: 'pointer',
-    };
-
-    if (!isActive) {
-      return (
-        <>
-          <Tag color={USER_STATUS_PROTOTYPE.BLOCKED.color}>Blocked</Tag>
-          <Tooltip title="Activate">
-            <CheckSquareTwoTone
-              style={iconStyles}
-              twoToneColor="#52c41a"
-              //  onClick={() =>
-              //      renderModal(
-              //          ACTIONS.ACTIVATE,
-              //          row._id
-              //      )
-              //  }
-            />
-          </Tooltip>
-        </>
-      );
-    }
-
-    return (
-      <Space>
-        <Tag color={USER_STATUS_PROTOTYPE.ACTIVE.color}>Active</Tag>
-        <Tooltip title="Block">
-          <LockTwoTone
-            style={iconStyles}
-            twoToneColor="#C73E1D"
-            //  onClick={() =>
-            //      renderModal(
-            //          ACTIONS.BLOCK,
-            //          row._id
-            //      )
-            //  }
-          />
-        </Tooltip>
-      </Space>
-    );
-  };
 
   return (
     <Spin spinning={isLoading}>

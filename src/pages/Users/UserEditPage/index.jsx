@@ -1,23 +1,13 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import {
-  Button,
-  Divider,
-  message,
-  Result,
-  Tabs,
-  Typography,
-  Row,
-  Col,
-  Space,
-} from 'antd';
+import { Button, Col, Divider, message, Row, Tabs, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 // import { useHistory, useParams } from 'react-router';
 import userApis from '../../../api/users';
-import Breadcrumb from './Breadcrumb';
 import AddEditForm from '../../../components/features/Users/AddEditForm';
 import parseErrorMessage from '../../../helpers/parseErrorMessage';
-import { useHistory, useParams } from 'react-router-dom';
+import Breadcrumb from './Breadcrumb';
 // import { useFunctionalitiesRedux } from '~/hooks';
 const { TabPane } = Tabs;
 const { Title } = Typography;
