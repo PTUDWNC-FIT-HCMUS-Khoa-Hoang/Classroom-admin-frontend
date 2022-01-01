@@ -32,6 +32,7 @@ export default function SearchForm({
         size="large"
         onSearch={handleSearch}
         loading={isLoading}
+        allowClear
       />
     </>
   );
