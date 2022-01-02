@@ -182,8 +182,14 @@ export default function AddEditForm({
   mode = 'edit',
 }) {
   // Parsing props
-  const { email, studentId, isVerified, isDeleted, isActive } =
+  const { email, fullname, studentId, isVerified, isDeleted, isActive } =
     information || {};
+
+  // constants
+  const MODEL_NAMES = {
+    singular: 'user',
+    plural: 'users',
+  };
 
   //   useState
   const [isLoading, setIsLoading] = useState(false);
@@ -234,13 +240,27 @@ export default function AddEditForm({
         autoComplete="off"
         layout="vertical"
         initialValues={{
+          fullname,
           email,
           studentId,
-          isDeleted,
-          isActive,
-          isVerified,
+          isDeleted: isDeleted,
+          isActive: typeof isActive === 'undefined' ? true : isActive,
+          isVerified: typeof isVerified === 'undefined' ? true : isVerified,
         }}
       >
+        {/* Fullname */}
+        <Form.Item
+          label="Fullname"
+          name="fullname"
+          rules={[
+            {
+              required: true,
+              message: `Please input ${MODEL_NAMES.singular} fullname!`,
+            },
+          ]}
+        >
+          <Input placeholder="Fullname" />
+        </Form.Item>
         {/* Email */}
         <Form.Item
           label="Email"
@@ -248,7 +268,7 @@ export default function AddEditForm({
           rules={[
             {
               required: true,
-              message: 'Please input your email!',
+              message: `Please input ${MODEL_NAMES.singular} email!`,
             },
           ]}
         >
@@ -262,11 +282,15 @@ export default function AddEditForm({
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: `Please input ${MODEL_NAMES.singular} password!`,
               },
             ]}
           >
-            <Input placeholder="Password" type="password" />
+            <Input
+              placeholder="Password"
+              type="password"
+              disabled={shouldBeDisabled()}
+            />
           </Form.Item>
         )}
         {/* Country */}
