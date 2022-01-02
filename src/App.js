@@ -10,6 +10,7 @@ import ClassroomList from './pages/Classrooms/ClassroomList';
 import UserAddPage from './pages/Users/UserAddPage';
 import UserEditPage from './pages/Users/UserEditPage';
 import UserListPage from './pages/Users/UserListPage';
+import UserViewPage from './pages/Users/UserViewPage';
 
 function App() {
   //#region Redux hooks
@@ -33,6 +34,7 @@ function App() {
                 <Route exact path="/users" component={UserListPage} />
                 <Route path="/users/edit/:id" component={UserEditPage} />
                 <Route path="/users/add" component={UserAddPage} />
+                <Route path="/users/view/:id" component={UserViewPage} />
                 {/* Course pages */}
                 <Route exact path="/courses" component={ClassroomList} />
               </Switch>
