@@ -7,6 +7,7 @@ import NavBar from './components/shared/NavBar';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
 import ClassroomList from './pages/Classrooms/ClassroomList';
+import UserAddPage from './pages/Users/UserAddPage';
 import UserEditPage from './pages/Users/UserEditPage';
 import UserListPage from './pages/Users/UserListPage';
 
@@ -31,6 +32,7 @@ function App() {
                 {/* User pages */}
                 <Route exact path="/users" component={UserListPage} />
                 <Route path="/users/edit/:id" component={UserEditPage} />
+                <Route path="/users/add" component={UserAddPage} />
                 {/* Course pages */}
                 <Route exact path="/courses" component={ClassroomList} />
               </Switch>

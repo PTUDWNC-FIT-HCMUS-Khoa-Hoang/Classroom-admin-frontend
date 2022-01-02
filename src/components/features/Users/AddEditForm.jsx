@@ -13,7 +13,6 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import parseErrorMessage from '../../../helpers/parseErrorMessage';
-import VerificationTag from './VerificationTag';
 
 // constants
 const MODES = {
@@ -129,6 +128,53 @@ const ActiveStatusField = ({ value = false, onChange }) => {
   );
 };
 
+const VerificationField = ({ value = false, onChange }) => {
+  const [isVerified, setIsVerified] = useState(false);
+
+  useEffect(() => {
+    setIsVerified(value);
+  }, [value]);
+
+  const triggerChange = (changedValue) => {
+    onChange?.(changedValue);
+  };
+
+  const onIsVerifiedChange = (e) => {
+    const newIsActive = Boolean(e.target.checked);
+
+    setIsVerified(newIsActive);
+
+    triggerChange(newIsActive);
+  };
+
+  const renderVerificationStatus = () => {
+    // const iconStyles = {
+    //   fontSize: '20px',
+    //   cursor: 'pointer',
+    // };
+
+    if (!isVerified) {
+      return (
+        <>
+          <Tag color={USER_STATUS_PROTOTYPE.BLOCKED.color}>Not verified</Tag>
+        </>
+      );
+    }
+
+    return (
+      <Space>
+        <Tag color={USER_STATUS_PROTOTYPE.ACTIVE.color}>Verified</Tag>
+      </Space>
+    );
+  };
+
+  return (
+    <Checkbox checked={isVerified} onChange={onIsVerifiedChange}>
+      {renderVerificationStatus()}
+    </Checkbox>
+  );
+};
+
 export default function AddEditForm({
   information,
   onSyncSubmit,
@@ -192,6 +238,7 @@ export default function AddEditForm({
           studentId,
           isDeleted,
           isActive,
+          isVerified,
         }}
       >
         {/* Email */}
@@ -224,11 +271,12 @@ export default function AddEditForm({
         )}
         {/* Country */}
         <Form.Item label="Student ID" name="studentId">
-          <Input placeholder="Student ID" />
+          <Input placeholder="Student ID" allowClear />
         </Form.Item>
         {/* Verification */}
         <Form.Item label="Verification" name="isVerified">
-          <VerificationTag isVerified={isVerified} />
+          {/* <VerificationTag isVerified={isVerified} /> */}
+          <VerificationField />
         </Form.Item>
         {/* Is Deleted */}
         <Row>
