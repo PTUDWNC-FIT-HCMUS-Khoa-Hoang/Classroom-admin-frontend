@@ -15,8 +15,8 @@ const usePagination = () => {
   };
 
   useEffect(() => {
-    const queryPage = query.get('page');
-    const queryPerPage = query.get('perPage');
+    const queryPage = parseInt(query.get('page'));
+    const queryPerPage = parseInt(query.get('perPage'));
 
     setPage(queryPage || 1);
     setPerPage(queryPerPage || 10);

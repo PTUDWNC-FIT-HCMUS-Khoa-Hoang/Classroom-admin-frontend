@@ -5,8 +5,10 @@ import {
   LockTwoTone,
   UnlockTwoTone,
 } from '@ant-design/icons';
+import { TablePagination } from '@trendmicro/react-paginations';
 import {
   Button,
+  Card,
   Col,
   Divider,
   message,
@@ -24,6 +26,7 @@ import userApis from '../../../api/users';
 import SearchBar from '../../../components/shared/SearchBar';
 import parseErrorMessage from '../../../helpers/parseErrorMessage';
 import capitalizeWord from '../../../helpers/string/capitalizeWord';
+import { usePagination } from '../../../hooks';
 import Breadcrumb from './Breadcrumb';
 
 const UserListPage = () => {
@@ -46,8 +49,9 @@ const UserListPage = () => {
   // Redux
   const authRedux = useSelector((state) => state.auth);
   // Pagination states
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
+  // const [page, setPage] = useState(1);
+  // const [perPage, setPerPage] = useState(10);
+  const { page, perPage, handlePaginationChange } = usePagination();
   // History
   const history = useHistory();
   // Modal properties
@@ -210,13 +214,12 @@ const UserListPage = () => {
     history.push(`/${MODEL_NAMES.plural}/add`);
   };
 
-  const handlePageChange = async (newPage) => {
-    setPage(newPage);
+  const handlePageChange = (newPage) => {
+    handlePaginationChange(newPage);
   };
 
-  const handlePerRowsChange = async (newPerPage, newPage) => {
-    setPerPage(newPerPage);
-    setPage(newPage);
+  const handlePerRowsChange = (newPerPage, newPage) => {
+    handlePaginationChange(newPage, newPerPage);
   };
 
   const handleRowsSelects = async (e) => {};
@@ -469,18 +472,40 @@ const UserListPage = () => {
             >
               <p>{modalProperties.text}</p>
             </Modal>
-            <DataTable
-              noHeader
-              columns={columns}
-              data={tableData}
-              progressPending={loading}
-              pagination
-              paginationServer
-              paginationTotalRows={total}
-              onChangeRowsPerPage={handlePerRowsChange}
-              onChangePage={handlePageChange}
-              onSelectedRowsChange={handleRowsSelects}
-            />
+
+            <Row>
+              <Col span={24}>
+                <DataTable
+                  keyField="id"
+                  noHeader
+                  columns={columns}
+                  data={tableData}
+                  progressPending={loading}
+                  // pagination
+                  paginationServer
+                  paginationTotalRows={total}
+                  onChangeRowsPerPage={handlePerRowsChange}
+                  onChangePage={handlePageChange}
+                  onSelectedRowsChange={handleRowsSelects}
+                />
+              </Col>
+              <Col span={24}>
+                <Card style={{ width: '100%', border: 'none' }}>
+                  <Divider />
+                  <TablePagination
+                    type="full"
+                    page={page}
+                    pageLength={perPage}
+                    totalRecords={total}
+                    onPageChange={({ page, pageLength }) => {
+                      handlePaginationChange(page, pageLength);
+                    }}
+                    prevPageRenderer={() => '<'}
+                    nextPageRenderer={() => '>'}
+                  />
+                </Card>
+              </Col>
+            </Row>
           </Col>
           {/* <!-- Individual column searching (text inputs) Ends--> */}
         </Row>
