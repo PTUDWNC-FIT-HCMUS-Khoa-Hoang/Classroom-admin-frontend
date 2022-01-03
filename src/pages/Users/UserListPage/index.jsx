@@ -14,6 +14,7 @@ import {
   message,
   Modal,
   Row,
+  Select,
   Space,
   Tag,
   Tooltip,
@@ -51,7 +52,14 @@ const UserListPage = () => {
   // Pagination states
   // const [page, setPage] = useState(1);
   // const [perPage, setPerPage] = useState(10);
-  const { page, perPage, handlePaginationChange } = usePagination();
+  const {
+    page,
+    perPage,
+    sortBy,
+    order,
+    handlePaginationChange,
+    handleSortChange,
+  } = usePagination();
   // History
   const history = useHistory();
   // Modal properties
@@ -254,6 +262,12 @@ const UserListPage = () => {
     }
   };
 
+  const handleCreatedAtSortChange = (value) => {
+    const jsonValue = JSON.parse(value);
+
+    handleSortChange(jsonValue.sortBy, jsonValue.order);
+  };
+
   // useEffect
   // Get total
   useEffect(() => {
@@ -283,6 +297,8 @@ const UserListPage = () => {
           skip: (page - 1) * perPage,
           limit: perPage,
           search: searchString,
+          sortBy,
+          order,
         });
         const response = axiosRes.data;
         setTableData(response.data);
@@ -296,7 +312,7 @@ const UserListPage = () => {
       setLoading(false);
     }
     getData({ page, perPage });
-  }, [authRedux.token, page, perPage, searchString]);
+  }, [authRedux.token, page, perPage, searchString, sortBy, order]);
 
   // Render functions
   const renderModal = (actionTitle, objectId, objective) => {
@@ -441,13 +457,46 @@ const UserListPage = () => {
         <Row>
           {/* <!-- Individual column searching (text inputs) Starts--> */}
           <Col span={24}>
-            <Button
-              className="btn btn-primary btn-lg"
-              type="primary"
-              onClick={handleAdd}
-            >
-              Add {capitalizeWord(MODEL_NAMES.singular)}
-            </Button>
+            <Space>
+              <Button
+                className="btn btn-primary btn-lg"
+                type="primary"
+                onClick={handleAdd}
+              >
+                Add {capitalizeWord(MODEL_NAMES.singular)}
+              </Button>
+              <Select
+                value={
+                  sortBy.length > 1
+                    ? JSON.stringify({
+                        sortBy,
+                        order,
+                      })
+                    : 'Sort'
+                }
+                onChange={handleCreatedAtSortChange}
+                style={{ minWidth: '12.5rem' }}
+              >
+                <Select.Option
+                  key="sort-1"
+                  value={JSON.stringify({
+                    sortBy: 'createdAt',
+                    order: 'asc',
+                  })}
+                >
+                  Created time: Ascending
+                </Select.Option>
+                <Select.Option
+                  key="sort-2"
+                  value={JSON.stringify({
+                    sortBy: 'createdAt',
+                    order: 'desc',
+                  })}
+                >
+                  Created time: Descending
+                </Select.Option>
+              </Select>
+            </Space>
 
             <Divider />
 
