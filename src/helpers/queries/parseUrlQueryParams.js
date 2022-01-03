@@ -1,4 +1,4 @@
-const allowedKeys = ['skip', 'limit', 'search'];
+const allowedKeys = ['skip', 'limit', 'search', 'sortBy', 'order'];
 
 const parseUrlQueryParams = (options) => {
   let optionString = '?';
