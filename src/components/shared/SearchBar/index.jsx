@@ -13,10 +13,6 @@ export default function SearchForm({
 
   useEffect(() => {
     setValue(defaultValue);
-    console.log(
-      '🚀 ~ file: index.jsx ~ line 16 ~ useEffect ~ defaultValue',
-      defaultValue
-    );
   }, [defaultValue]);
 
   const handleSearch = async (values) => {
