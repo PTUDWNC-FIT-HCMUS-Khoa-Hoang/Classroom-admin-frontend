@@ -1,13 +1,23 @@
 import { Input, message } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import parseErrorMessage from '../../../helpers/parseErrorMessage';
 
 export default function SearchForm({
   text,
   handleAsyncSearch,
   handleSyncSearch,
+  defaultValue,
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setValue(defaultValue);
+    console.log(
+      '🚀 ~ file: index.jsx ~ line 16 ~ useEffect ~ defaultValue',
+      defaultValue
+    );
+  }, [defaultValue]);
 
   const handleSearch = async (values) => {
     setIsLoading(true);
@@ -33,6 +43,8 @@ export default function SearchForm({
         onSearch={handleSearch}
         loading={isLoading}
         allowClear
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
     </>
   );

@@ -41,8 +41,6 @@ const UserListPage = () => {
     DEACTIVATE: 'deactivate',
     ACTIVATE: 'activate',
   };
-  // Clientside states
-  const [searchString, setSearchString] = useState('');
   // Serverside states
   const [tableData, setTableData] = useState([]);
   const [total, setTotal] = useState(0);
@@ -57,8 +55,10 @@ const UserListPage = () => {
     perPage,
     sortBy,
     order,
+    searchString,
     handlePaginationChange,
     handleSortChange,
+    handleSearchChange,
   } = usePagination();
   // History
   const history = useHistory();
@@ -247,19 +247,8 @@ const UserListPage = () => {
     setIsModalLoading(false);
   };
 
-  const handleDataSearch = async (searchStr) => {
-    try {
-      const axiosRes = await userApis.getAll(authRedux.token, {
-        search: searchStr,
-        skip: (page - 1) * perPage,
-        limit: perPage,
-      });
-      const response = axiosRes.data;
-      setTableData(response.data);
-      setSearchString(searchStr);
-    } catch (error) {
-      message.error(parseErrorMessage(error));
-    }
+  const handleDataSearch = (searchStr) => {
+    handleSearchChange(searchStr);
   };
 
   const handleCreatedAtSortChange = (value) => {
@@ -443,6 +432,7 @@ const UserListPage = () => {
             <SearchBar
               text="User's name, email or student ID"
               handleAsyncSearch={handleDataSearch}
+              defaultValue={searchString}
             />
           </Col>
         </Row>
