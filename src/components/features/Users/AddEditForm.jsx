@@ -34,52 +34,52 @@ const USER_STATUS_PROTOTYPE = {
   },
 };
 
-const DeletedStatusField = ({ value = false, onChange }) => {
-  const [isDeleted, setIsDeleted] = useState(false);
+// const DeletedStatusField = ({ value = false, onChange }) => {
+//   const [isDeleted, setIsDeleted] = useState(false);
 
-  useEffect(() => {
-    setIsDeleted(value);
-  }, [value]);
+//   useEffect(() => {
+//     setIsDeleted(value);
+//   }, [value]);
 
-  const triggerChange = (changedValue) => {
-    onChange?.(changedValue);
-  };
+//   const triggerChange = (changedValue) => {
+//     onChange?.(changedValue);
+//   };
 
-  const onDeletedChange = (e) => {
-    const newIsDeleted = Boolean(e.target.checked);
+//   const onDeletedChange = (e) => {
+//     const newIsDeleted = Boolean(e.target.checked);
 
-    setIsDeleted(newIsDeleted);
+//     setIsDeleted(newIsDeleted);
 
-    triggerChange(newIsDeleted);
-  };
+//     triggerChange(newIsDeleted);
+//   };
 
-  const renderDeletedStatus = () => {
-    // const iconStyles = {
-    //   fontSize: '20px',
-    //   cursor: 'pointer',
-    // };
+//   const renderDeletedStatus = () => {
+//     // const iconStyles = {
+//     //   fontSize: '20px',
+//     //   cursor: 'pointer',
+//     // };
 
-    if (isDeleted) {
-      return (
-        <>
-          <Tag color={USER_STATUS_PROTOTYPE.DELETED.color}>Deleted</Tag>
-        </>
-      );
-    }
+//     if (isDeleted) {
+//       return (
+//         <>
+//           <Tag color={USER_STATUS_PROTOTYPE.DELETED.color}>Deleted</Tag>
+//         </>
+//       );
+//     }
 
-    return (
-      <>
-        <Tag color={USER_STATUS_PROTOTYPE.ACTIVE.color}>Not deleted</Tag>
-      </>
-    );
-  };
+//     return (
+//       <>
+//         <Tag color={USER_STATUS_PROTOTYPE.ACTIVE.color}>Not deleted</Tag>
+//       </>
+//     );
+//   };
 
-  return (
-    <Checkbox checked={isDeleted} onChange={onDeletedChange}>
-      {renderDeletedStatus()}
-    </Checkbox>
-  );
-};
+//   return (
+//     <Checkbox checked={isDeleted} onChange={onDeletedChange}>
+//       {renderDeletedStatus()}
+//     </Checkbox>
+//   );
+// };
 
 const ActiveStatusField = ({ value = false, onChange }) => {
   const [isActive, setIsActive] = useState(false);
@@ -182,7 +182,7 @@ export default function AddEditForm({
   mode = 'edit',
 }) {
   // Parsing props
-  const { email, fullname, studentId, isVerified, isDeleted, isActive } =
+  const { email, fullname, studentId, isVerified, isActive } =
     information || {};
 
   // constants
@@ -243,7 +243,6 @@ export default function AddEditForm({
           fullname,
           email,
           studentId,
-          isDeleted: isDeleted,
           isActive: typeof isActive === 'undefined' ? true : isActive,
           isVerified: typeof isVerified === 'undefined' ? true : isVerified,
         }}
@@ -302,14 +301,6 @@ export default function AddEditForm({
           {/* <VerificationTag isVerified={isVerified} /> */}
           <VerificationField />
         </Form.Item>
-        {/* Is Deleted */}
-        <Row>
-          <Col span={24}>
-            <Form.Item label="Is Deleted" name="isDeleted">
-              <DeletedStatusField />
-            </Form.Item>
-          </Col>
-        </Row>
         {/* Is Active (Status) */}
         <Row>
           <Col span={24}>
