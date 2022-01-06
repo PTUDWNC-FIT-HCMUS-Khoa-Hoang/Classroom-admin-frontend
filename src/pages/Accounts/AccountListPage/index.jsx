@@ -143,7 +143,7 @@ const AccountListPage = () => {
                     <EditTwoTone
                       style={iconStyles}
                       twoToneColor="#315659"
-                      onClick={() => EditTableDatum(row.id)}
+                      onClick={() => EditTableDatum(row._id)}
                     />
                   </Tooltip>
                 </Col>
@@ -152,7 +152,7 @@ const AccountListPage = () => {
                   <Tooltip title="View">
                     <EyeTwoTone
                       style={iconStyles}
-                      onClick={() => ViewTableDatumDetail(row.id)}
+                      onClick={() => ViewTableDatumDetail(row._id)}
                     />
                   </Tooltip>
                 </Col>
@@ -162,7 +162,7 @@ const AccountListPage = () => {
                     <DeleteTwoTone
                       twoToneColor="#eb4b2f"
                       style={iconStyles}
-                      onClick={() => RemoveTableDatum(row.id, row.email)}
+                      onClick={() => RemoveTableDatum(row._id, row.email)}
                     />
                   </Tooltip>
                 </Col>
@@ -173,7 +173,7 @@ const AccountListPage = () => {
                       <LockTwoTone
                         twoToneColor="#eb4b2f"
                         style={iconStyles}
-                        onClick={() => DeactivateTableDatum(row.id, row.email)}
+                        onClick={() => DeactivateTableDatum(row._id, row.email)}
                       />
                     </Tooltip>
                   </Col>
@@ -183,7 +183,7 @@ const AccountListPage = () => {
                       <UnlockTwoTone
                         twoToneColor="#AAD922"
                         style={iconStyles}
-                        onClick={() => ActivateTableDatum(row.id, row.email)}
+                        onClick={() => ActivateTableDatum(row._id, row.email)}
                       />
                     </Tooltip>
                   </Col>
@@ -324,7 +324,7 @@ const AccountListPage = () => {
 
               setTableData((tableData) => {
                 const temp = tableData.map((datum) => {
-                  if (datum.id === objectId) {
+                  if (datum._id === objectId) {
                     datum.isDeleted = true;
                   }
                   return datum;
@@ -358,7 +358,7 @@ const AccountListPage = () => {
 
               setTableData((tableData) => {
                 const temp = tableData.map((datum) => {
-                  if (datum.id === objectId) {
+                  if (datum._id === objectId) {
                     datum.isActive = false;
                   }
                   return datum;
@@ -392,7 +392,7 @@ const AccountListPage = () => {
 
               setTableData((tableData) => {
                 const temp = tableData.map((datum) => {
-                  if (datum.id === objectId) {
+                  if (datum._id === objectId) {
                     datum.isActive = true;
                   }
                   return datum;
