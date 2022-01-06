@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Footer from './components/shared/Footer';
 import NavBar from './components/shared/NavBar';
+import AccountAddPage from './pages/Accounts/AccountAddPage';
+import AccountEditPage from './pages/Accounts/AccountEditPage';
+import AccountListPage from './pages/Accounts/AccountListPage';
+import AccountViewPage from './pages/Accounts/AccountViewPage';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
 import ClassroomList from './pages/Classrooms/ClassroomList';
@@ -35,6 +39,11 @@ function App() {
                 <Route path="/users/edit/:id" component={UserEditPage} />
                 <Route path="/users/add" component={UserAddPage} />
                 <Route path="/users/view/:id" component={UserViewPage} />
+                {/* Account pages */}
+                <Route exact path="/accounts" component={AccountListPage} />
+                <Route path="/accounts/edit/:id" component={AccountEditPage} />
+                <Route path="/accounts/add" component={AccountAddPage} />
+                <Route path="/accounts/view/:id" component={AccountViewPage} />
                 {/* Course pages */}
                 <Route exact path="/courses" component={ClassroomList} />
               </Switch>
