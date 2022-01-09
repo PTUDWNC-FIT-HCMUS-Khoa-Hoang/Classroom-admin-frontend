@@ -15,11 +15,6 @@ const TableHeader = styled.th`
 `;
 
 export default function StudentList({ classroom }) {
-  console.log(
-    '🚀 ~ file: StudentList.jsx ~ line 4 ~ StudentList ~ classroom',
-    classroom
-  );
-
   const filterGrade = (studentId, gradeId) => {
     return classroom.gradeBoard.find(
       (gradeDetail) =>
