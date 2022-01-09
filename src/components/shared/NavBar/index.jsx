@@ -24,6 +24,7 @@ export default function NavBar() {
       login: 'login',
       users: 'users',
       accounts: 'accounts',
+      roles: 'roles',
       // register: 'register',
     };
     //#endregion
@@ -36,6 +37,8 @@ export default function NavBar() {
       setSelectedMenu(MENU_LIST.users);
     } else if (location.pathname.includes(MENU_LIST.accounts)) {
       setSelectedMenu(MENU_LIST.accounts);
+    } else if (location.pathname.includes(MENU_LIST.roles)) {
+      setSelectedMenu(MENU_LIST.roles);
     } else {
       setSelectedMenu(MENU_LIST.home);
     }
@@ -60,6 +63,9 @@ export default function NavBar() {
                 </Menu.Item>
                 <Menu.Item key="classrooms">
                   <Link to="/classrooms">Classes</Link>
+                </Menu.Item>
+                <Menu.Item key="roles">
+                  <Link to="/roles">Roles</Link>
                 </Menu.Item>
               </>
             ) : (
