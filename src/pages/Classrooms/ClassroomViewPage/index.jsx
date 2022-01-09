@@ -16,6 +16,7 @@ import Breadcrumb from './Breadcrumb';
 import DetailInformation from './DetailInformation';
 import parseErrorMessage from '../../../helpers/parseErrorMessage';
 import { useHistory, useParams } from 'react-router-dom';
+import StudentList from './StudentList';
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
@@ -89,14 +90,9 @@ export default function ClassroomViewPage() {
               <DetailInformation information={information} />
             ) : null}
           </TabPane>
-          {/* <TabPane tab="Purchase History" key="2">
-                                        {purchaseHistory
-                                            ? 
-                                            <PurchaseHistory
-                                                stripeHistory={purchaseHistory.paymentHistoryStripe}
-                                              />
-                                            : 'Empty'}
-                                    </TabPane> */}
+          <TabPane tab="Student List" key="2">
+            <StudentList classroom={information} />
+          </TabPane>
         </Tabs>
       </Card>
     </>
