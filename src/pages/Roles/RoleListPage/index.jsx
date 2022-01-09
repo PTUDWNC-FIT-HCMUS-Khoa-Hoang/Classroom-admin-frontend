@@ -111,7 +111,7 @@ const RoleListPage = () => {
                     <EditTwoTone
                       style={iconStyles}
                       twoToneColor="#315659"
-                      onClick={() => EditTableDatum(row.id)}
+                      onClick={() => EditTableDatum(row._id)}
                     />
                   </Tooltip>
                 </Col>
