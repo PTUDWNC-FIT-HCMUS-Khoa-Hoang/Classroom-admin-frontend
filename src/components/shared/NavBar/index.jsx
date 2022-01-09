@@ -20,7 +20,7 @@ export default function NavBar() {
     //#region constants
     const MENU_LIST = {
       home: 'home',
-      courses: 'courses',
+      classrooms: 'classrooms',
       login: 'login',
       users: 'users',
       accounts: 'accounts',
@@ -28,8 +28,8 @@ export default function NavBar() {
     };
     //#endregion
 
-    if (location.pathname.includes(MENU_LIST.courses)) {
-      setSelectedMenu(MENU_LIST.courses);
+    if (location.pathname.includes(MENU_LIST.classrooms)) {
+      setSelectedMenu(MENU_LIST.classrooms);
     } else if (location.pathname.includes(MENU_LIST.login)) {
       setSelectedMenu(MENU_LIST.home);
     } else if (location.pathname.includes(MENU_LIST.users)) {
@@ -58,8 +58,8 @@ export default function NavBar() {
                 <Menu.Item key="accounts">
                   <Link to="/accounts">Accounts</Link>
                 </Menu.Item>
-                <Menu.Item key="courses">
-                  <Link to="/courses">Courses</Link>
+                <Menu.Item key="classrooms">
+                  <Link to="/classrooms">Classes</Link>
                 </Menu.Item>
               </>
             ) : (
