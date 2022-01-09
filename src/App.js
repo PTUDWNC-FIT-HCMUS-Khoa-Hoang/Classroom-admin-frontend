@@ -12,6 +12,8 @@ import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
 import ClassroomListPage from './pages/Classrooms/ClassroomListPage';
 import ClassroomViewPage from './pages/Classrooms/ClassroomViewPage';
+import RoleEditPage from './pages/Roles/RoleEditPage';
+import RoleListPage from './pages/Roles/RoleListPage';
 import UserAddPage from './pages/Users/UserAddPage';
 import UserEditPage from './pages/Users/UserEditPage';
 import UserListPage from './pages/Users/UserListPage';
@@ -51,6 +53,9 @@ function App() {
                   path="/classrooms/view/:id"
                   component={ClassroomViewPage}
                 />
+                {/* Role pages */}
+                <Route exact path="/roles" component={RoleListPage} />
+                <Route path="/roles/edit/:id" component={RoleEditPage} />
               </Switch>
             )}
           </Layout.Content>
