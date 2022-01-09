@@ -382,37 +382,6 @@ const RoleListPage = () => {
               >
                 Add {capitalizeWord(MODEL_NAMES.singular)}
               </Button>
-              <Select
-                value={
-                  sortBy.length > 1
-                    ? JSON.stringify({
-                        sortBy,
-                        order,
-                      })
-                    : 'Sort'
-                }
-                onChange={handleCreatedAtSortChange}
-                style={{ minWidth: '12.5rem' }}
-              >
-                <Select.Option
-                  key="sort-1"
-                  value={JSON.stringify({
-                    sortBy: 'createdAt',
-                    order: 'asc',
-                  })}
-                >
-                  Created time: Ascending
-                </Select.Option>
-                <Select.Option
-                  key="sort-2"
-                  value={JSON.stringify({
-                    sortBy: 'createdAt',
-                    order: 'desc',
-                  })}
-                >
-                  Created time: Descending
-                </Select.Option>
-              </Select>
             </Space>
 
             <Divider />
