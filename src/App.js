@@ -10,7 +10,8 @@ import AccountListPage from './pages/Accounts/AccountListPage';
 import AccountViewPage from './pages/Accounts/AccountViewPage';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
-import ClassroomList from './pages/Classrooms/ClassroomList';
+import ClassroomListPage from './pages/Classrooms/ClassroomListPage';
+import ClassroomViewPage from './pages/Classrooms/ClassroomViewPage';
 import UserAddPage from './pages/Users/UserAddPage';
 import UserEditPage from './pages/Users/UserEditPage';
 import UserListPage from './pages/Users/UserListPage';
@@ -45,7 +46,11 @@ function App() {
                 <Route path="/accounts/add" component={AccountAddPage} />
                 <Route path="/accounts/view/:id" component={AccountViewPage} />
                 {/* Course pages */}
-                <Route exact path="/courses" component={ClassroomList} />
+                <Route exact path="/classrooms" component={ClassroomListPage} />
+                <Route
+                  path="/classrooms/view/:id"
+                  component={ClassroomViewPage}
+                />
               </Switch>
             )}
           </Layout.Content>
