@@ -1,9 +1,11 @@
-import getAllOwned from './getAllOwned';
-import postOne from './postOne';
+import getAll from './getAll';
+import getOne from './getOne';
+import getOneById from './getOneById';
 
-const classroomApis = {
-  getAllOwned,
-  postOne,
+const userApis = {
+  getAll,
+  getOne,
+  getOneById,
 };
 
-export default classroomApis;
+export default userApis;
