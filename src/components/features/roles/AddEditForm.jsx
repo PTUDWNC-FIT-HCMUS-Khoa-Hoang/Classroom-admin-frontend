@@ -1,36 +1,10 @@
 /* eslint-disable react/prop-types */
-import {
-  CheckSquareTwoTone,
-  DeleteTwoTone,
-  LockTwoTone,
-} from '@ant-design/icons';
-import {
-  Badge,
-  Button,
-  Form,
-  Input,
-  Select,
-  message,
-  Spin,
-  Tag,
-  Tooltip,
-  Space,
-  Row,
-  Col,
-  Checkbox,
-} from 'antd';
-import React, { useState, useEffect } from 'react';
+import { Button, Checkbox, Col, Form, message, Row, Spin } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import functionalityApis from '../../../api/functionalities';
-import roleApis from '../../../api/roles';
 import parseErrorMessage from '../../../helpers/parseErrorMessage';
 import parseCamalCase from '../../../helpers/parsers/parseCamalCase';
-import { useSelector } from 'react-redux';
-
-// constants
-const MODES = {
-  edit: 'edit',
-  add: 'add',
-};
 
 const FunctionalitiesSelect = ({ value = [], onChange }) => {
   const [functionalities, setFunctionalities] = useState([]);

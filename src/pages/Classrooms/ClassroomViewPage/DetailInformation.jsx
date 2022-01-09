@@ -1,42 +1,12 @@
 /* eslint-disable react/prop-types */
-import {
-  CheckCircleOutlined,
-  CheckCircleTwoTone,
-  CloseCircleOutlined,
-  CloseCircleTwoTone,
-} from '@ant-design/icons';
-import {
-  Col,
-  Descriptions,
-  Divider,
-  Image,
-  Row as li,
-  Space,
-  Tag,
-  Tooltip,
-} from 'antd';
+import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
+import { Descriptions, Tooltip } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import VerificationTag from '../../../components/features/Users/VerificationTag';
 
 export default function DetailInformation({ information }) {
   const { title, subTitle, invitationCode, gradeStructure, owner } =
     information;
-  // constants
-  const STATUS_PROTOTYPE = {
-    ACTIVE: {
-      content: 'Active',
-      color: 'green',
-    },
-    BLOCKED: {
-      content: 'Blocked',
-      color: 'volcano',
-    },
-    DELETED: {
-      content: 'Deleted',
-      color: 'red',
-    },
-  };
 
   return (
     <>

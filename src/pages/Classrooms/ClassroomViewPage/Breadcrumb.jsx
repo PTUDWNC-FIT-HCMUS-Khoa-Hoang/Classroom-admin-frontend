@@ -14,6 +14,7 @@ export default function UserViewBreadcrumb() {
         <span>Class List</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
+        <EyeOutlined />
         <span>Class View</span>
       </Breadcrumb.Item>
     </Breadcrumb>

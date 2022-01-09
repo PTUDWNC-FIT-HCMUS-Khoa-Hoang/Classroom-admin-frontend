@@ -1,10 +1,4 @@
-import {
-  DeleteTwoTone,
-  EditTwoTone,
-  EyeTwoTone,
-  LockTwoTone,
-  UnlockTwoTone,
-} from '@ant-design/icons';
+import { EyeTwoTone } from '@ant-design/icons';
 import { TablePagination } from '@trendmicro/react-paginations';
 import {
   Button,
@@ -22,10 +16,9 @@ import {
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import classroomApis from '../../../api/classrooms';
 import SearchBar from '../../../components/shared/SearchBar';
-import parseErrorMessage from '../../../helpers/parseErrorMessage';
 import capitalizeWord from '../../../helpers/string/capitalizeWord';
 import { usePagination } from '../../../hooks';
 import Breadcrumb from './Breadcrumb';
@@ -35,11 +28,6 @@ const ClassroomListPage = () => {
   const MODEL_NAMES = {
     singular: 'classroom',
     plural: 'classrooms',
-  };
-  const ACTIONS = {
-    DELETE: 'delete',
-    DEACTIVATE: 'deactivate',
-    ACTIVATE: 'activate',
   };
   // Serverside states
   const [tableData, setTableData] = useState([]);
@@ -63,7 +51,7 @@ const ClassroomListPage = () => {
   // History
   const history = useHistory();
   // Modal properties
-  const [modalProperties, setModalProperties] = useState({
+  const [modalProperties] = useState({
     confirmButtonText: '',
     confirmButtonColor: '',
     title: '',
@@ -149,26 +137,7 @@ const ClassroomListPage = () => {
     history.push(`/${MODEL_NAMES.plural}/view/${id}`);
   };
 
-  const RemoveTableDatum = (id, name) => {
-    renderModal(ACTIONS.DELETE, id, name);
-  };
-
-  const ActivateTableDatum = (id, name) => {
-    renderModal(ACTIONS.ACTIVATE, id, name);
-  };
-
-  const DeactivateTableDatum = (id, name) => {
-    renderModal(ACTIONS.DEACTIVATE, id, name);
-  };
-
-  const EditTableDatum = (id) => {
-    history.push(`/${MODEL_NAMES.plural}/edit/${id}`);
-  };
-
   // handle functions
-  const handleAdd = () => {
-    history.push(`/${MODEL_NAMES.plural}/add`);
-  };
 
   const handlePageChange = (newPage) => {
     handlePaginationChange(newPage);
@@ -252,121 +221,6 @@ const ClassroomListPage = () => {
   }, [authRedux.token, page, perPage, searchString, sortBy, order]);
 
   // Render functions
-  const renderModal = (actionTitle, objectId, objective) => {
-    const modalText = (
-      <>
-        Do you really want to {actionTitle.toLowerCase()}{' '}
-        <strong>{`${MODEL_NAMES.singular}: ${objective}`}</strong>
-      </>
-    );
-    switch (actionTitle.toLowerCase()) {
-      case ACTIONS.DELETE: {
-        setModalProperties({
-          title: `Delete ${MODEL_NAMES.singular}`,
-          confirmButtonText: 'Delete',
-          confirmButtonColor: 'red',
-          text: modalText,
-          handleOk: async () => {
-            try {
-              await classroomApis.deleteOne(authRedux.token, objectId);
-
-              setTableData((tableData) => {
-                const temp = tableData.map((datum) => {
-                  if (datum._id === objectId) {
-                    datum.isDeleted = true;
-                  }
-                  return datum;
-                });
-
-                return temp;
-              });
-
-              return {
-                status: 'deleted',
-                id: objectId,
-              };
-            } catch (error) {
-              throw new Error(parseErrorMessage(error));
-            }
-          },
-        });
-        break;
-      }
-      case ACTIONS.DEACTIVATE: {
-        setModalProperties({
-          title: `Block ${MODEL_NAMES.singular}`,
-          confirmButtonText: 'Block',
-          confirmButtonColor: 'red',
-          text: modalText,
-          handleOk: async () => {
-            try {
-              await classroomApis.putOne(authRedux.token, objectId, {
-                isActive: false,
-              });
-
-              setTableData((tableData) => {
-                const temp = tableData.map((datum) => {
-                  if (datum._id === objectId) {
-                    datum.isActive = false;
-                  }
-                  return datum;
-                });
-
-                return temp;
-              });
-
-              return {
-                status: 'blocked',
-                id: objectId,
-              };
-            } catch (error) {
-              throw new Error(parseErrorMessage(error));
-            }
-          },
-        });
-        break;
-      }
-      case ACTIONS.ACTIVATE: {
-        setModalProperties({
-          title: `Unblock ${MODEL_NAMES.singular}`,
-          confirmButtonText: 'Unblock',
-          confirmButtonColor: 'green',
-          text: modalText,
-          handleOk: async () => {
-            try {
-              await classroomApis.putOne(authRedux.token, objectId, {
-                isActive: true,
-              });
-
-              setTableData((tableData) => {
-                const temp = tableData.map((datum) => {
-                  if (datum._id === objectId) {
-                    datum.isActive = true;
-                  }
-                  return datum;
-                });
-
-                return temp;
-              });
-
-              return {
-                status: 'unblocked',
-                id: objectId,
-              };
-            } catch (error) {
-              throw new Error(parseErrorMessage(error));
-            }
-          },
-        });
-        break;
-      }
-      default: {
-        return;
-      }
-    }
-
-    setIsModalVisible(true);
-  };
 
   return (
     <>

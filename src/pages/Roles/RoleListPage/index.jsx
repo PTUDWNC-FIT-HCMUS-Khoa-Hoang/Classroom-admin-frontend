@@ -1,10 +1,4 @@
-import {
-  DeleteTwoTone,
-  EditTwoTone,
-  EyeTwoTone,
-  LockTwoTone,
-  UnlockTwoTone,
-} from '@ant-design/icons';
+import { EditTwoTone } from '@ant-design/icons';
 import { TablePagination } from '@trendmicro/react-paginations';
 import {
   Button,
@@ -14,9 +8,7 @@ import {
   message,
   Modal,
   Row,
-  Select,
   Space,
-  Tag,
   Tooltip,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -25,7 +17,6 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import roleApis from '../../../api/roles';
 import SearchBar from '../../../components/shared/SearchBar';
-import parseErrorMessage from '../../../helpers/parseErrorMessage';
 import capitalizeWord from '../../../helpers/string/capitalizeWord';
 import { usePagination } from '../../../hooks';
 import Breadcrumb from './Breadcrumb';
@@ -36,11 +27,7 @@ const RoleListPage = () => {
     singular: 'role',
     plural: 'roles',
   };
-  const ACTIONS = {
-    DELETE: 'delete',
-    DEACTIVATE: 'deactivate',
-    ACTIVATE: 'activate',
-  };
+
   // Serverside states
   const [tableData, setTableData] = useState([]);
   const [total, setTotal] = useState(0);
@@ -57,13 +44,12 @@ const RoleListPage = () => {
     order,
     searchString,
     handlePaginationChange,
-    handleSortChange,
     handleSearchChange,
   } = usePagination();
   // History
   const history = useHistory();
   // Modal properties
-  const [modalProperties, setModalProperties] = useState({
+  const [modalProperties] = useState({
     confirmButtonText: '',
     confirmButtonColor: '',
     title: '',
@@ -124,21 +110,6 @@ const RoleListPage = () => {
   ];
 
   // Table datum actions
-  const ViewTableDatumDetail = (id) => {
-    history.push(`/${MODEL_NAMES.plural}/view/${id}`);
-  };
-
-  const RemoveTableDatum = (id, name) => {
-    renderModal(ACTIONS.DELETE, id, name);
-  };
-
-  const ActivateTableDatum = (id, name) => {
-    renderModal(ACTIONS.ACTIVATE, id, name);
-  };
-
-  const DeactivateTableDatum = (id, name) => {
-    renderModal(ACTIONS.DEACTIVATE, id, name);
-  };
 
   const EditTableDatum = (id) => {
     history.push(`/${MODEL_NAMES.plural}/edit/${id}`);
@@ -176,12 +147,6 @@ const RoleListPage = () => {
 
   const handleDataSearch = (searchStr) => {
     handleSearchChange(searchStr);
-  };
-
-  const handleCreatedAtSortChange = (value) => {
-    const jsonValue = JSON.parse(value);
-
-    handleSortChange(jsonValue.sortBy, jsonValue.order);
   };
 
   // useEffect
@@ -229,123 +194,6 @@ const RoleListPage = () => {
     }
     getData({ page, perPage });
   }, [authRedux.token, page, perPage, searchString, sortBy, order]);
-
-  // Render functions
-  const renderModal = (actionTitle, objectId, objective) => {
-    const modalText = (
-      <>
-        Do you really want to {actionTitle.toLowerCase()}{' '}
-        <strong>{`${MODEL_NAMES.singular}: ${objective}`}</strong>
-      </>
-    );
-    switch (actionTitle.toLowerCase()) {
-      case ACTIONS.DELETE: {
-        setModalProperties({
-          title: `Delete ${MODEL_NAMES.singular}`,
-          confirmButtonText: 'Delete',
-          confirmButtonColor: 'red',
-          text: modalText,
-          handleOk: async () => {
-            try {
-              await roleApis.deleteOne(authRedux.token, objectId);
-
-              setTableData((tableData) => {
-                const temp = tableData.map((datum) => {
-                  if (datum.id === objectId) {
-                    datum.isDeleted = true;
-                  }
-                  return datum;
-                });
-
-                return temp;
-              });
-
-              return {
-                status: 'deleted',
-                id: objectId,
-              };
-            } catch (error) {
-              throw new Error(parseErrorMessage(error));
-            }
-          },
-        });
-        break;
-      }
-      case ACTIONS.DEACTIVATE: {
-        setModalProperties({
-          title: `Block ${MODEL_NAMES.singular}`,
-          confirmButtonText: 'Block',
-          confirmButtonColor: 'red',
-          text: modalText,
-          handleOk: async () => {
-            try {
-              await roleApis.putOne(authRedux.token, objectId, {
-                isActive: false,
-              });
-
-              setTableData((tableData) => {
-                const temp = tableData.map((datum) => {
-                  if (datum.id === objectId) {
-                    datum.isActive = false;
-                  }
-                  return datum;
-                });
-
-                return temp;
-              });
-
-              return {
-                status: 'blocked',
-                id: objectId,
-              };
-            } catch (error) {
-              throw new Error(parseErrorMessage(error));
-            }
-          },
-        });
-        break;
-      }
-      case ACTIONS.ACTIVATE: {
-        setModalProperties({
-          title: `Unblock ${MODEL_NAMES.singular}`,
-          confirmButtonText: 'Unblock',
-          confirmButtonColor: 'green',
-          text: modalText,
-          handleOk: async () => {
-            try {
-              await roleApis.putOne(authRedux.token, objectId, {
-                isActive: true,
-              });
-
-              setTableData((tableData) => {
-                const temp = tableData.map((datum) => {
-                  if (datum.id === objectId) {
-                    datum.isActive = true;
-                  }
-                  return datum;
-                });
-
-                return temp;
-              });
-
-              return {
-                status: 'unblocked',
-                id: objectId,
-              };
-            } catch (error) {
-              throw new Error(parseErrorMessage(error));
-            }
-          },
-        });
-        break;
-      }
-      default: {
-        return;
-      }
-    }
-
-    setIsModalVisible(true);
-  };
 
   return (
     <>
