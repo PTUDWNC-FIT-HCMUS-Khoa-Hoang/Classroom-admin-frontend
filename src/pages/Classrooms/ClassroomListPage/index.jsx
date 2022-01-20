@@ -85,7 +85,7 @@ const ClassroomListPage = () => {
       sortable: true,
       center: true,
       cell: (row) => (
-        <Link to={`/users/view/${row.owner._id}`}>{row.owner.email}</Link>
+        <Link to={`/users/view/${row.owner?._id}`}>{row.owner?.email}</Link>
       ),
       grow: 2,
     },
